@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "immich.fullname" . }}-ai
+  labels:
+    type: immich-ai
+    {{- include "immich.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "immich.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        type: immich-ai
+        {{- include "immich.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "immich.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.ai.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-ai
+          securityContext:
+            {{- toYaml .Values.ai.securityContext | nindent 12 }}
+          image: ghcr.io/immich-app/immich-machine-learning:{{ .Values.image.tag | default .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- if .Values.immich.configuration }}
+            - name: IMMICH_CONFIG_FILE
+              value: /config/immich-config.yaml
+            {{- end }}
+            - name: REDIS_HOSTNAME
+              value: '{{ printf "%s-redis-master" .Release.Name }}'
+            - name: DB_HOSTNAME
+              value: "{{ .Release.Name }}-postgresql"
+            - name: DB_USERNAME
+              value: "{{ .Values.postgresql.global.postgresql.auth.username }}"
+            - name: DB_DATABASE_NAME
+              value: "{{ .Values.postgresql.global.postgresql.auth.database }}"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: immich-postgres-credentials
+                  key: password
+            - name: IMMICH_MACHINE_LEARNING_URL
+              value: http://{{ include "immich.fullname" . }}-ai:3003
+          ports:
+            - name: http-ai
+              containerPort: 3003
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: http-ai
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: http-ai
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: cache
+              mountPath: /cache
+          {{- with .Values.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      volumes:
+        - name: cache
+          persistentVolumeClaim:
+            claimName: {{ include "immich.fullname" . }}-ai-cache
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.ai.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

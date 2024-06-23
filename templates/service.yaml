@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "immich.fullname" . }}-server
+  labels:
+    type: immich-server
+    {{- include "immich.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    type: immich-server
+    {{- include "immich.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "immich.fullname" . }}-microsvc
+  labels:
+    type: immich-microsvc
+    {{- include "immich.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.microservices.service.type }}
+  ports:
+    - port: {{ .Values.microservices.service.port }}
+      targetPort: http-microsvc
+      protocol: TCP
+      name: http-microsvc
+  selector:
+    type: immich-microsvc
+    {{- include "immich.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "immich.fullname" . }}-ai
+  labels:
+    type: immich-ai
+    {{- include "immich.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.ai.service.type }}
+  ports:
+    - port: {{ .Values.ai.service.port }}
+      targetPort: http-ai
+      protocol: TCP
+      name: http-ai
+  selector:
+    type: immich-ai
+    {{- include "immich.selectorLabels" . | nindent 4 }}
