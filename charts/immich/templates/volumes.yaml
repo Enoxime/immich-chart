@@ -37,6 +37,8 @@ spec:
     requests:
       storage: 50Gi
   storageClassName: "{{ .Values.persistence.storageClassName }}"
+{{/* TODO
 {{- if and .Values.persistence.upload.enabled (empty (.Values.persistence.upload.existingClaim).name) }}
 {{- end }}
+*/}}
 {{- end }}
