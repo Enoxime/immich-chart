@@ -14,9 +14,10 @@ A Helm chart for Kubernetes
 | ai.image.tag | string | `""` |  |
 | ai.nodeSelector | object | `{}` |  |
 | ai.podSecurityContext | object | `{}` |  |
-| ai.replicaCount | string | `""` |  |
+| ai.replicaCount | int | `1` |  |
 | ai.resources | object | `{}` |  |
 | ai.runtimeClass.enabled | bool | `false` |  |
+| ai.runtimeClass.name | string | `""` |  |
 | ai.securityContext | object | `{}` |  |
 | ai.service.port | int | `3003` |  |
 | ai.service.type | string | `"ClusterIP"` |  |
@@ -42,6 +43,7 @@ A Helm chart for Kubernetes
 | microservices.nodeSelector | object | `{}` |  |
 | microservices.resources | object | `{}` |  |
 | microservices.runtimeClass.enabled | bool | `false` |  |
+| microservices.runtimeClass.name | string | `""` |  |
 | microservices.tolerations | list | `[]` |  |
 | microservices.volumeMounts | list | `[]` |  |
 | microservices.volumes | list | `[]` |  |
@@ -80,6 +82,7 @@ A Helm chart for Kubernetes
 | securityContext | object | `{}` |  |
 | server.service.port | int | `2283` |  |
 | server.service.type | string | `"ClusterIP"` |  |
+| server.trustedProxies | string | `""` |  |
 | server.volumeMounts | list | `[]` |  |
 | server.volumes | list | `[]` |  |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |

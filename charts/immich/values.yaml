@@ -97,9 +97,10 @@ ai:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
-  replicaCount: ""
+  replicaCount: 1
   runtimeClass:
     enabled: false
+    name: ""
   podSecurityContext: {}
   securityContext: {}
   service:
@@ -116,6 +117,7 @@ ai:
 microservices:
   runtimeClass:
     enabled: false
+    name: ""
   nodeSelector: {}
   tolerations: []
   resources: {}
@@ -132,6 +134,7 @@ server:
   volumes: []
   # Additional volumeMounts on the output Deployment definition.
   volumeMounts: []
+  trustedProxies: ""
 
 postgresql:
   url: ""
