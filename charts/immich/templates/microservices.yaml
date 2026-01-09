@@ -6,7 +6,7 @@ metadata:
     type: immich-microsvc
     {{- include "immich.labels" . | nindent 4 }}
 spec:
-  {{- if .Values.microservices.runtimeClass.enabled }}
+  {{- if and .Values.microservices.runtimeClass.enabled .Values.microservices.runtimeClass.name }}
   runtimeClassName: {{ .Values.microservices.runtimeClass.name }}
   {{- end }}
   {{- if not .Values.autoscaling.enabled }}
