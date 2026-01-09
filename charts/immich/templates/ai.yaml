@@ -27,7 +27,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      {{- if .Values.ai.runtimeClass.enabled }}
+      {{- if and .Values.ai.runtimeClass.enabled .Values.ai.runtimeClass.name }}
       runtimeClassName: {{ .Values.ai.runtimeClass.name }}
       {{- end }}
       {{- with .Values.imagePullSecrets }}
