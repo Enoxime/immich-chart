@@ -1,4 +1,4 @@
-{{- if ipp.enabled }}
+{{- if .Values.ipp.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -41,10 +41,10 @@ spec:
           imagePullPolicy: {{ .Values.ipp.image.pullPolicy }}
           env:
             - name: IMMICH_URL
-              value: http://{{ include "immich.fullname" . }}-server:{{ .Values.server.service.port }}
-            {{- if ipp.publicBaseUrl.enabled }}
+              value: http://{{ include "immich.fullname" . }}-server:{{ .Values.ipp.service.port }}
+            {{- if .Values.ipp.publicBaseUrl.enabled }}
             - name: PUBLIC_BASE_URL
-              value: {{ ipp.publicBaseUrl.url }}
+              value: {{ .Values.ipp.publicBaseUrl.url }}
             {{- end }}
           ports:
             - name: http-ipp
@@ -69,7 +69,7 @@ spec:
           resources:
             {{- toYaml .Values.ipp.resources | nindent 12 }}
           volumeMounts:
-          {{- if .ipp.config.enabled }}
+          {{- if .Values.ipp.config.enabled }}
             - name: ipp-config
               mountPath: /app/config.json
               subPath: config.json
@@ -80,7 +80,7 @@ spec:
           {{- end }}
 
       volumes:
-      {{- if .ipp.config.enabled }}
+      {{- if .Values.ipp.config.enabled }}
         - name: ipp-config
           configMap:
             name: {{ include "immich.fullname" . }}-ipp-config

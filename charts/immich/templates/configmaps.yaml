@@ -65,7 +65,7 @@ data:
   TZ: {{ .Values.timezone | quote }}
   # see: https://immich.app/docs/administration/jobs-workers/
   IMMICH_WORKERS_EXCLUDE: api
-{{- if and ipp.enabled ipp.config.enabled }}
+{{- if and .Values.ipp.enabled .Values.ipp.config.enabled }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -77,9 +77,9 @@ data:
   config.json: |
     {
       "ipp": {
-        "singleImageGallery": {{ ipp.config.singleImageGallery }},
-        "downloadOriginalPhoto": {{ ipp.config.downloadOriginalPhoto }},
-        "allowDownloadAll": {{ ipp.config.allowDownloadAll }}
+        "singleImageGallery": {{ .Values.ipp.config.singleImageGallery }},
+        "downloadOriginalPhoto": {{ .Values.ipp.config.downloadOriginalPhoto }},
+        "allowDownloadAll": {{ .Values.ipp.config.allowDownloadAll }}
       }
     }
 {{- end }}
