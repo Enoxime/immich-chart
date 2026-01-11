@@ -75,11 +75,9 @@ metadata:
     {{- include "immich.labels" . | nindent 4 }}
 data:
   config.json: |
-    {
-      "ipp": {
-        "singleImageGallery": {{ .Values.ipp.config.singleImageGallery }},
-        "downloadOriginalPhoto": {{ .Values.ipp.config.downloadOriginalPhoto }},
-        "allowDownloadAll": {{ .Values.ipp.config.allowDownloadAll }}
-      }
-    }
+    {{- toJson (dict "ipp" (dict
+          "singleImageGallery" .Values.ipp.config.singleImageGallery
+          "downloadOriginalPhoto" .Values.ipp.config.downloadOriginalPhoto
+          "allowDownloadAll" .Values.ipp.config.allowDownloadAll
+        )) | nindent 4 }}
 {{- end }}
