@@ -3,6 +3,16 @@ entries:
   immich:
   - apiVersion: v2
     appVersion: v2.4.1
+    created: "2026-01-11T19:51:12.582263685Z"
+    description: A Helm chart for Kubernetes
+    digest: 885cb28c974a12fbe4aebb0c8da79a432169a518a82f35a7cb8a22a7de0dbcf2
+    name: immich
+    type: application
+    urls:
+    - https://github.com/Enoxime/immich-chart/releases/download/immich-0.2.0/immich-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: v2.4.1
     created: "2026-01-09T04:12:03.515985428Z"
     description: A Helm chart for Kubernetes
     digest: 3fc142169263f75442eb2f951455cb62ae6a663e45f6290303355a98c20237e2
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://github.com/Enoxime/immich-chart/releases/download/immich-0.1.1/immich-0.1.1.tgz
     version: 0.1.1
-generated: "2026-01-09T04:12:03.515997961Z"
+generated: "2026-01-11T19:51:12.582275567Z"
