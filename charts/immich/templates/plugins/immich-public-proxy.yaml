@@ -11,6 +11,7 @@ spec:
   selector:
     matchLabels:
       {{- include "immich.selectorLabels" . | nindent 6 }}
+      type: immich-public-proxy
   strategy:
     type: Recreate
   template:
