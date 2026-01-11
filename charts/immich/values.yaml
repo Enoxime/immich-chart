@@ -136,6 +136,30 @@ server:
   volumeMounts: []
   trustedProxies: ""
 
+# -- Activate immich-public-proxy
+ipp:
+  enable: false
+  image:
+    repository: alangrainger/immich-public-proxy
+    pullPolicy: IfNotPresent
+    tag: "1.14.2"
+  podSecurityContext: {}
+  securityContext: {}
+  publicBaseUrl:
+    enabled: false
+    # -- http(s)?://public-domain.com
+    url: ""
+  config:
+    enabled: false
+    singleImageGallery: false
+    downloadOriginalPhoto: true
+    allowDownloadAll: 1
+  service:
+    type: ClusterIP
+    port: 3000
+  volumeMounts: []
+  volumes: []
+
 postgresql:
   url: ""
   hostname: database

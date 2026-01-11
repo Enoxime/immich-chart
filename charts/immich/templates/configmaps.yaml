@@ -65,3 +65,21 @@ data:
   TZ: {{ .Values.timezone | quote }}
   # see: https://immich.app/docs/administration/jobs-workers/
   IMMICH_WORKERS_EXCLUDE: api
+{{- if and ipp.enabled ipp.config.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "immich.fullname" . }}-ipp-config
+  labels:
+    {{- include "immich.labels" . | nindent 4 }}
+data:
+  config.json: |
+    {
+      "ipp": {
+        "singleImageGallery": {{ ipp.config.singleImageGallery }},
+        "downloadOriginalPhoto": {{ ipp.config.downloadOriginalPhoto }},
+        "allowDownloadAll": {{ ipp.config.allowDownloadAll }}
+      }
+    }
+{{- end }}
