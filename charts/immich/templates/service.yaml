@@ -33,3 +33,23 @@ spec:
   selector:
     type: immich-ai
     {{- include "immich.selectorLabels" . | nindent 4 }}
+{{- if .Values.ipp.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "immich.fullname" . }}-public-proxy
+  labels:
+    type: immich-public-proxy
+    {{- include "immich.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.ipp.service.type }}
+  ports:
+    - port: {{ .Values.ipp.service.port }}
+      targetPort: http-ipp
+      protocol: TCP
+      name: http-ipp
+  selector:
+    type: immich-public-proxy
+    {{- include "immich.selectorLabels" . | nindent 4 }}
+{{- end }}
