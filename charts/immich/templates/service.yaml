@@ -33,7 +33,7 @@ spec:
   selector:
     type: immich-ai
     {{- include "immich.selectorLabels" . | nindent 4 }}
-{{- if ipp.enabled }}
+{{- if .Values.ipp.enabled }}
 ---
 apiVersion: v1
 kind: Service
