@@ -40,7 +40,7 @@ A Helm chart for Kubernetes
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | ingress.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
 | ingress.tls | list | `[]` |  |
-| ipp | object | `{"config":{"allowDownloadAll":1,"downloadOriginalPhoto":true,"enabled":false,"singleImageGallery":false},"enable":false,"image":{"pullPolicy":"IfNotPresent","repository":"alangrainger/immich-public-proxy","tag":"1.14.2"},"podSecurityContext":{},"publicBaseUrl":{"enabled":false,"url":""},"securityContext":{},"service":{"port":3000,"type":"ClusterIP"},"volumeMounts":[],"volumes":[]}` | Activate immich-public-proxy |
+| ipp | object | `{"config":{"allowDownloadAll":1,"downloadOriginalPhoto":true,"enabled":false,"singleImageGallery":false},"enabled":false,"image":{"pullPolicy":"IfNotPresent","repository":"alangrainger/immich-public-proxy","tag":"1.14.2"},"podSecurityContext":{},"publicBaseUrl":{"enabled":false,"url":""},"resources":{},"securityContext":{},"service":{"port":3000,"type":"ClusterIP"},"volumeMounts":[],"volumes":[]}` | Activate immich-public-proxy |
 | ipp.publicBaseUrl.url | string | `""` | http(s)?://public-domain.com |
 | microservices.nodeSelector | object | `{}` |  |
 | microservices.resources | object | `{}` |  |

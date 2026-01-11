@@ -157,6 +157,7 @@ ipp:
   service:
     type: ClusterIP
     port: 3000
+  resources: {}
   volumeMounts: []
   volumes: []
 
