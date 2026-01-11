@@ -138,7 +138,7 @@ server:
 
 # -- Activate immich-public-proxy
 ipp:
-  enable: false
+  enabled: false
   image:
     repository: alangrainger/immich-public-proxy
     pullPolicy: IfNotPresent
