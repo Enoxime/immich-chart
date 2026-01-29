@@ -3,7 +3,7 @@
 
 This project moved to [homelab-charts](https://github.com/Enoxime/homelab-charts).
 
-[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+[![No Maintenance Intended](https://unmaintained.tech/badge.svg)](https://unmaintained.tech/)
 
 ![Release Charts](https://github.com/Enoxime/immich-chart/actions/workflows/release.yaml/badge.svg?branch=main)
 
