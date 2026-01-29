@@ -1,5 +1,9 @@
 
-# immich independent helm chart
+# MIGRATED immich independent helm chart
+
+This project moved to [homelab-charts](https://github.com/Enoxime/homelab-charts).
+
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 ![Release Charts](https://github.com/Enoxime/immich-chart/actions/workflows/release.yaml/badge.svg?branch=main)
 
